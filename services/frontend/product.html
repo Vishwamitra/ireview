@@ -135,13 +135,13 @@
                 summary: document.querySelector(".add-review-summary").value,
                 description: document.querySelector(".add-review-description").value
             })
-            showProductReviews(reviews)
+            showProductReviews()
             initializeAddReview()
         }
 
         const deleteReview = (id) => { // TODO: axios
             reviews = reviews.filter(review => review.id != id)
-            showProductReviews(reviews)
+            showProductReviews()
         }
 
         /* -----------------------      
