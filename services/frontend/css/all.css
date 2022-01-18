@@ -10,7 +10,21 @@ body {
     padding: 30px;
 }
 
+.button {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button:hover {
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
 /*-------- LOADER ----------*/
+
 .loader,
 .loader:after {
     border-radius: 50%;
