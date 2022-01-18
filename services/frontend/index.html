@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review App - Products</title>
+    <meta name="description" content="A website that reviews products">
+    <link rel="stylesheet" href="css/all.css?v=1.0">
+    <link rel="stylesheet" href="css/products.css?v=1.0">
+</head>
+<body>
+    <div id="page_products">
+        <div class="loader"></div>
+    </div>
+    <script>
+
+        const starsHtml = (num) => {
+            var result = ''
+            Array.from(Array(num).keys()).forEach((star, j) => {
+                result += `<img class='star' src='images/star.png' />`
+            })
+            return result
+        }
+
+        const fetchProducts = () => { // TODO: fetch from backend with axios, https://attacomsian.com/blog/axios-javascript
+            insertProducts([{ 
+                id: 1,
+                name: 'iPhone',
+                stars: 3,
+                price: 845,
+                image: "images/test-product.png",
+                summary: 'This is a summary description'
+            }, { 
+                id: 2,
+                name: 'iPod',
+                stars: 2,
+                price: 249,
+                summary: 'This is a summary description'
+            }, { 
+                id: 3,
+                name: 'MacBook',
+                stars: 3,
+                price: 1249,
+                summary: 'This is a summary description'
+            }, { 
+                id: 4,
+                name: 'Samsung Galaxy S3',
+                stars: 2,
+                price: 845,
+                summary: 'This is a summary description'
+            }, { 
+                id: 5,
+                name: 'AirPods',
+                stars: 3,
+                price: 145,
+                summary: 'This is a summary description'
+            }, { 
+                id: 6,
+                name: 'Windows Laptop',
+                stars: 5,
+                price: 459,
+                summary: 'This is a summary description'
+            }])
+        }
+
+        const insertProducts = (products) => {
+            const productWrapper = document.querySelector("#page_products")
+            productWrapper.innerHTML = ""
+
+            products.forEach((product, i) => {
+                productWrapper.innerHTML += `<a class='product' href="product.html?id=${product.id}">
+                    <div class='product-image' style='background-image: url(images/product-cover-${product.id}.png);'> </div>
+                    <h3 class='title'> ${product.name} </h3>
+                    <div class='stars'> ${starsHtml(product.stars)} </div>
+                    <h4 class='description'> ${product.summary} </h4>
+                    <h5> $${product.price} </h5>
+                </a>`
+            })
+        }
+
+        // load all products
+        window.onload = () => {
+            fetchProducts()
+        }
+    </script>
+</body>
+</html>
