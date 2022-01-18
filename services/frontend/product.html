@@ -12,9 +12,8 @@
     <body>
         <div id="page_product">
             <div class="loader"></div>
-            <div class="product-information"></div>
-            <div class="product-reviews"></div>
-            <div class="product-review-add"></div>
+            <!--<div class="product-reviews"></div>
+            <div class="product-review-add"></div> -->
         </div>
     </body>
     <script>
@@ -53,7 +52,8 @@
         }
 
         const showProductInformation = (product) => {
-            const productInformation = document.querySelector(".product-information")
+            const productInformation = document.createElement("div")
+            productInformation.className = "product-information"
             productInformation.innerHTML = `
                 <div class="left" style="background-image: url(images/product-cover-1.png);"></div>
                 <div class="right">
@@ -65,16 +65,20 @@
                     </div>
                 </div>
             `
+            document.querySelector("#page_product").appendChild(productInformation)
         }
 
         const showProductReviews = (input) => {
-            const productReviews = document.querySelector(".product-reviews")
+            const productReviews = document.createElement("div")
+            productReviews.className = "product-reviews"
+
             productReviews.innerHTML = `
                 <h1> Reviews </h1>
                 <div class="reviews">
                     ${reviewHtmls(input ? input : reviews)}
                 </div>
             `
+            document.querySelector("#page_product").appendChild(productReviews)
         }
 
         const starSelectorHtml = (num) => {
@@ -86,7 +90,8 @@
         }
 
         const initializeAddReview = () => {
-            const productReviewAdd = document.querySelector(".product-review-add")
+            const productReviewAdd = document.createElement("div")
+            productReviewAdd.className = "product-review-add"
             productReviewAdd.innerHTML = `
                 <h2> Add review </h2>
                 <input type="text" class="add-review-user" placeholder="Your name"/>
@@ -97,6 +102,7 @@
                 <textarea class="add-review-description" placeholder="Enter review"></textarea>
                 <span class="button add" onClick="addReview()"> ADD </span>
             `
+            document.querySelector("#page_product").appendChild(productReviewAdd)
         }
 
         /* -----------------          
@@ -114,11 +120,11 @@
             }
 
             // show components
-            document.querySelector(".loader").remove()
             reviews = result.reviews
             showProductInformation(result)
             showProductReviews()
             initializeAddReview()
+            document.querySelector(".loader").remove()
         }
 
         const addReview = (input) => { // TODO: axios
