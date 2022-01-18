@@ -25,6 +25,8 @@
 
         var reviews = []
         var productInfo = {}
+        const NUMBER_OF_RATINGS = 10
+        const DEFAULT_RATING = 6
 
         /* ---------------------------      
         ------- Show contents --------
@@ -45,7 +47,7 @@
                         <h5 class="date"> ${getTime(review.date)} </h5> 
                     </div>
                     <h3 class='summary'> ${review.summary} </h3>
-                    <h4 class='rating'> ${review.rating}/10 </h4>
+                    <h4 class='rating'> ${review.rating}/${NUMBER_OF_RATINGS} </h4>
                     <h4 class='description'> ${review.description} </h4>
                     <span class="button delete" onClick="deleteReview(${review.id})"> DELETE </span>
                 </div>`
@@ -78,10 +80,11 @@
             `
         }
 
-        const starSelectorHtml = (num) => {
+        const starSelectorHtml = () => {
             var result = ''
-            Array.from(Array(num).keys()).forEach((star, j) => {
-                result += `<option> ${j + 1} </option>`
+            Array.from(Array(NUMBER_OF_RATINGS).keys()).forEach((star, j) => {
+                var rating = j + 1
+                result += `<option ${rating == DEFAULT_RATING ? 'selected="selected"' : ''}> ${rating} </option>`
             })
             return result
         }
@@ -92,7 +95,7 @@
                 <h2> Add review </h2>
                 <input type="text" class="add-review-user" placeholder="Your name"/>
                 Rating <select class="add-review-rating">
-                    ${starSelectorHtml(10)}
+                    ${starSelectorHtml()}
                 </select>
                 <textarea class="add-review-summary" placeholder="Short description"></textarea>
                 <textarea class="add-review-description" placeholder="Enter review"></textarea>
