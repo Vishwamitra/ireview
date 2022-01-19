@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Review App - Products</title>
+        <meta name="description" content="A website that reviews products">
+        <link rel="stylesheet" href="css/all.css?v=1.0">
+        <link rel="stylesheet" href="css/products.css?v=1.0">
+        <script src="js/all.js"></script>
+    </head>
+    <body>
+        <div id="page_products">
+            <div class="loader"></div>
+        </div>
+        <script>
+
+            /* -----------------------      
+            ------- Show contents --------
+            -------------------------- */
+
+            const insertProducts = (products) => {
+                const productWrapper = document.querySelector("#page_products")
+                productWrapper.innerHTML = ""
+
+                products.forEach((product, i) => {
+                    productWrapper.innerHTML += `<a class='product' href="product.html?id=${product.id}">
+                        <div class='product-image' style='background-image: url(${product.image});'> </div>
+                        <h3 class='title'> ${product.name} </h3>
+                        <div class='stars'> ${starsHtml(product.stars)} </div>
+                        <h4 class='summary'> ${product.summary} </h4>
+                        <h5> $${product.price} </h5>
+                    </a>`
+                })
+            }
+
+            /* -----------------------      
+            ------- API --------
+            -------------------------- */
+
+            const fetchProducts = () => { // TODO: fetch from backend with axios, https://attacomsian.com/blog/axios-javascript
+                insertProducts([{ 
+                    id: 1,
+                    name: 'iPhone',
+                    image: 'images/product-cover-1.png',
+                    stars: 3,
+                    price: 845,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 2,
+                    name: 'iPod',
+                    image: 'images/product-cover-2.png',
+                    stars: 2,
+                    price: 249,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 3,
+                    name: 'MacBook',
+                    image: 'images/product-cover-3.png',
+                    stars: 3,
+                    price: 1249,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 4,
+                    name: 'Samsung Galaxy S3',
+                    image: 'images/product-cover-4.png',
+                    stars: 2,
+                    price: 845,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 5,
+                    name: 'AirPods',
+                    image: 'images/product-cover-5.png',
+                    stars: 3,
+                    price: 145,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 6,
+                    name: 'Windows Laptop',
+                    image: 'images/product-cover-6.png',
+                    stars: 5,
+                    price: 459,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 7,
+                    name: 'Apple Watch',
+                    image: 'images/product-cover-7.png',
+                    stars: 5,
+                    price: 445,
+                    summary: 'This is a summary description'
+                }, { 
+                    id: 8,
+                    name: 'Apple AirTag',
+                    image: 'images/product-cover-8.png',
+                    stars: 3,
+                    price: 29,
+                    summary: 'This is a summary description'
+                }])
+            }
+
+            /* -----------------------      
+            ------- On render --------
+            -------------------------- */
+
+            window.onload = () => {
+                fetchProducts()
+            }
+        </script>
+    </body>
+</html>
