@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build-api:
 
     runs-on: ubuntu-latest
     defaults:
@@ -17,5 +17,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Docker Image for API
       run: docker build . --file Dockerfile --tag api:$(date +%s)
+  
+  build-web:
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/frontend
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker image for web
+      run: docker build . --file Dockerfile --tag frontend:$(date +%s)
+
+  build-db:
+
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/db
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker image for DB
+      run: docker build . --file Dockerfile --tag db:$(date +%s)
