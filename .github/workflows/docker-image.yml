@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker Image for API
-      run: docker build . --file Dockerfile --tag api:$(date +%s)
+      run: docker build . --file Dockerfile --tag api:latest
   
   build-web:
 
@@ -30,7 +30,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker image for web
-      run: docker build . --file Dockerfile --tag frontend:$(date +%s)
+      run: docker build . --file Dockerfile --tag frontend:latest
 
   build-db:
 
@@ -42,4 +42,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker image for DB
-      run: docker build . --file Dockerfile --tag db:$(date +%s)
+      run: docker build . --file Dockerfile --tag db:latest
