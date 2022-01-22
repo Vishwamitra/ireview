@@ -11,8 +11,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/api
 
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file services/api/Dockerfile --tag api:$(date +%s)
+      run: docker build . --file Dockerfile --tag api:$(date +%s)
