@@ -9,14 +9,14 @@ services:
     restart: always
   web:
     container_name: server
-    build: ./server
+    build: ./api
     environment:
       MYSQL_DATABASE: test
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_HOST: db
     ports:
-      - "5000:5000"
+      - "5000:8081"
     depends_on:
       - db
     restart: on-failure
