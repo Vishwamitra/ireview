@@ -1,5 +1,13 @@
 version: "3.8"
 services:
+  web:
+    container_name: web
+    build: ./web
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    restart: on-failure
   db:
     container_name: db
     build: ./db
@@ -7,14 +15,14 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: test
     restart: always
-  web:
+  server:
     container_name: server
     build: ./server
     environment:
-      MYSQL_DATABASE: test
+      MYSQL_HOST: db
       MYSQL_USER: root
       MYSQL_PASSWORD: password
-      MYSQL_HOST: db
+      MYSQL_DATABASE: test
     ports:
       - "5000:5000"
     depends_on:

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Review App - Products</title>
         <meta name="description" content="A website that reviews products">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="css/all.css?v=1.0">
         <link rel="stylesheet" href="css/products.css?v=1.0">
         <script src="js/all.js"></script>
@@ -24,12 +25,12 @@
                 productWrapper.innerHTML = ""
 
                 products.forEach((product, i) => {
-                    productWrapper.innerHTML += `<a class='product' href="product.html?id=${product.id}">
-                        <div class='product-image' style='background-image: url(${product.image});'> </div>
-                        <h3 class='title'> ${product.name} </h3>
-                        <div class='stars'> ${starsHtml(product.stars)} </div>
-                        <h4 class='summary'> ${product.summary} </h4>
-                        <h5> $${product.price} </h5>
+                    productWrapper.innerHTML += `<a class='product' href="product.html?id=${product.ProductID}">
+                        <div class='product-image' style='background-image: url(images/product-cover-${product.ProductID}.png);'> </div>
+                        <h3 class='title'> ${product.ProductName} </h3>
+                        <div class='stars'> ${starsHtml(product.AvgReview)} </div>
+                        <h4 class='summary'> ${product.ProductSummary} </h4>
+                        <h5> $${product.ProductPrice} </h5>
                     </a>`
                 })
             }
@@ -38,8 +39,13 @@
             ------- API --------
             -------------------------- */
 
-            const fetchProducts = () => { // TODO: fetch from backend with axios, https://attacomsian.com/blog/axios-javascript
-                insertProducts([{ 
+            const fetchProducts = () => { 
+                axios.get('http://localhost:5000/products').then(response => {
+                    insertProducts(response.data)
+                }).catch(error => console.error(error))
+            }
+
+        /* insertProducts([{ 
                     id: 1,
                     name: 'iPhone',
                     image: 'images/product-cover-1.png',
@@ -95,8 +101,7 @@
                     stars: 3,
                     price: 29,
                     summary: 'This is a summary description'
-                }])
-            }
+                }])*/
 
             /* -----------------------      
             ------- On render --------
