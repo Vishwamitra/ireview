@@ -10,7 +10,7 @@ class Component extends React.Component {
     }
 
     componentDidMount(){
-        axios.get(`http://localhost:${process.env.REACT_APP_PORT}/products`).then(response => {
+        axios.get(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/products`).then(response => {
             this.setState({
                 isLoading: false,
                 products: response.data
@@ -28,8 +28,9 @@ class Component extends React.Component {
                         <div className='product-image' style={{backgroundImage: `url(assets/product-cover-${product.ProductID}.png)`}}> </div>
                         <h3 className='title'> {product.ProductName} </h3>
                         <div className='stars'> 
-                            { Array.from(Array(product.AvgReview).keys()).forEach((star, j) => {
-                                    return <img key={j} className='star' src='images/star.png' />
+                            {   
+                                Array.from(Array(product.AvgReview).keys()).map((star, j) => {
+                                    return <img key={j} className='star' src='/assets/star.png' />
                                 })
                             }
                         </div>

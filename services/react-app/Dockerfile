@@ -4,8 +4,8 @@ COPY . .
 
 # install and build
 RUN npm install
-ARG REACT_APP_PORT
-ENV REACT_APP_PORT $REACT_APP_PORT
+ARG REACT_APP_BACKEND_PORT
+ENV REACT_APP_BACKEND_PORT $REACT_APP_BACKEND_PORT
 RUN npm run build
 
 # nginx deploy

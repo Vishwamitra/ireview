@@ -25,7 +25,7 @@ class Component extends React.Component {
     }
 
     addReview = (input) => { 
-        axios.post(`http://localhost:${process.env.REACT_APP_PORT}/review`, {
+        axios.post(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/review`, {
             ProductID: this.state.productInfo.ProductID,
             ReviewPriceQuality: this.state.rating,
             Reviewer: this.state.reviewerName || "Anonymous",
@@ -50,7 +50,7 @@ class Component extends React.Component {
     }
 
     deleteReview = (id) => { 
-        axios.get(`http://localhost:${process.env.REACT_APP_PORT}/review/delete/${id}`).then(() => { 
+        axios.get(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/review/delete/${id}`).then(() => { 
             var reviews = this.state.productInfo.reviews
             reviews = reviews.filter(review => review.ReviewID != id)
             this.setState(prevState => ({
@@ -65,7 +65,8 @@ class Component extends React.Component {
 
     componentDidMount(){
         const { id} = this.props.match.params
-        axios.get(`http://localhost:${process.env.REACT_APP_PORT}/product/${id}`).then(response => {
+        axios.get(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/product/${id}`).then(response => {
+            console.log(response.data)
             const { data } = response
             this.setState({
                 isLoading: false,
@@ -86,10 +87,11 @@ class Component extends React.Component {
                         <h1 className='title'> {productInfo.ProductName} </h1>
                         <h5 className="price"> Starting from ${productInfo.ProductPrice} </h5>
                         <div className='stars'> 
-                            { Array.from(Array(productInfo.AvgReview).keys()).forEach((star, j) => {
-                                    return <img key={j} className='star' src='images/star.png' />
+                            { Array.from(Array(productInfo.AvgReview).keys()).map((star, j) => {
+                                    return <img key={j} className='star' src='/assets/star.png' />
                                 })
-                            } </div>
+                            } 
+                        </div>
                         <h4 className='description'> {productInfo.ProductDescription} </h4>
                     </div>
                 </div>
