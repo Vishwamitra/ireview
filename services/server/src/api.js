@@ -16,11 +16,10 @@ router.get('/products', (req, res) => {
 	connection.query(QUERY_PRODUCTS, (err, rows) => {
 		if(err){ 
             console.log(err)
-            res.json()
-		} else {
-            console.log(rows)
-			res.json(rows)
-		}
+            return res.json()
+		} 
+     
+		res.json(rows)
 	})
 })
 
@@ -30,9 +29,8 @@ router.get('/product/:id', (req, res) => {
 	connection.query(`${QUERY_PRODUCTS} WHERE ProductID = ?`, [id], (err, productInfo) => {
 		connection.query(`SELECT * FROM REVIEW WHERE ProductID = ?`, [id], (err2, reviews) => {
             if(err || err2){ 
-                return res.json({
-                    err
-                })
+                console.log(err, err2)
+                return res.json()
             }
 
             return res.json({
@@ -66,7 +64,12 @@ router.post('/review', (req, res) => {
             ReviewDescription
         ], (err, productInfo) => {
             connection.query(`SELECT * FROM REVIEW WHERE ReviewID = ?`, [productInfo.insertId], (err, finalInfo) => {
-                res.json(finalInfo[0])
+                if (err){
+                    console.log(err)
+                    return res.json()
+                }
+
+                return res.json(finalInfo[0])
             })
 	    }
     )
@@ -75,6 +78,11 @@ router.post('/review', (req, res) => {
 router.get('/review/delete/:id', (req, res) => {
     const { id } = req.params
     connection.query(`DELETE FROM REVIEW WHERE ReviewID = ?`, [id], (err, reviews) => {
+        if (err){
+            console.log(err)
+            return res.json()
+        }
+
         return res.json()
     })
 })
