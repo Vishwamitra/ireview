@@ -1,22 +1,41 @@
 version: "3.8"
 services:
-  db:
-    container_name: db
+  database:
+    container_name: database
     build: ./db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: test
+    ports:
+      - 3306:3306
     restart: always
-  web:
-    container_name: server
+
+    networks:
+      - ireview-app
+  # web:
+  #   container_name: server
+  #   build: ./frontend
+  #   ports:
+  #     - "8181:8181"
+  #   depends_on:
+  #     - db
+  #     - api
+  #   restart: on-failure
+  #   networks:
+  #    - ireview-app
+  
+  api:
+    container_name: api
     build: ./api
     environment:
-      MYSQL_DATABASE: test
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_HOST: db
+      SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:password@database:3306/test
+      SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
     ports:
       - "5000:8081"
     depends_on:
-      - db
-    restart: on-failure
+      - database
+    networks:
+      - ireview-app
+
+networks:
+  ireview-app:

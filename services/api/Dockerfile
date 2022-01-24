@@ -1,14 +1,14 @@
-FROM alpine:3
+FROM python:3.8.5-alpine
+WORKDIR /app
+COPY . /app
 
 RUN apk update
 RUN apk add py-pip
 RUN apk add --no-cache python3-dev 
 RUN pip install --upgrade pip
 
-WORKDIR /app
-COPY . /app
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev
 RUN pip --no-cache-dir install -r requirements.txt
 
-EXPOSE 8081
-
-CMD ["python3", "app.py"]
+EXPOSE 5000
+CMD ["flask", "run", "--host=0.0.0.0"]
