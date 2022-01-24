@@ -110,12 +110,12 @@
         const fetchProduct = () => { 
             const id = window.location.href.split("=").slice(-1)
             axios.get(`http://localhost:5000/product/${id}`).then(response => {
-                const result = response.data
-                productInfo = result
-                reviews = result.reviews
+                const { data } = response
+                productInfo = data
+                reviews = data.reviews
 
                 // show components
-                showProductInformation(result)
+                showProductInformation(data)
                 showProductReviews()
                 initializeAddReview()
                 document.querySelector(".loader").remove()
