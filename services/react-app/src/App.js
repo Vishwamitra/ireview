@@ -3,8 +3,8 @@ import Products from './pages/Products'
 import Product from './pages/Product'
 import { Switch, Route } from 'react-router-dom'
 import './all.css'
-import './index.css'
 import './products.css'
+import './product.css'
 
 class Component extends React.Component {
     render(){

@@ -1,12 +1,15 @@
-# Stage 1
-FROM node:8 as react-build
-WORKDIR /app
-COPY . ./
-RUN yarn
-RUN yarn build
+FROM node:14-slim as ui-builder
+WORKDIR /home/ui
+COPY . .
 
-# Stage 2 - the production environment
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=react-build /app/dist /usr/share/nginx/html
-EXPOSE 80
+# install and build
+RUN npm install
+ARG REACT_APP_PORT
+ENV REACT_APP_PORT $REACT_APP_PORT
+RUN npm run build
+
+# nginx deploy
+FROM nginx
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY --from=ui-builder /home/ui/build /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]
