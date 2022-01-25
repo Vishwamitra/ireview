@@ -34,7 +34,7 @@ class Product(db.Model):
 class Review(db.Model):
     __tablename__ = 'Review'
     ReviewID = db.Column(db.Integer, primary_key=True)
-    ProductID = db.Column(db.Integer, db.ForeignKey('product.ProductID'))
+    ProductID = db.Column(db.Integer, db.ForeignKey('Product.ProductID'))
     Reviewer = db.Column(db.String(100))
     ReviewPriceQuality = db.Column(db.Integer)
     ReviewSummary = db.Column(db.Text)

@@ -1,5 +1,17 @@
 version: "3.8"
 services:
+  frontend:
+    container_name: frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_BACKEND_PORT: "5000"
+    ports:
+      - "1234:80"
+    depends_on:
+      - api
+    restart: on-failure
   database:
     container_name: database
     build: ./db
@@ -12,17 +24,6 @@ services:
 
     networks:
       - ireview-app
-  # web:
-  #   container_name: server
-  #   build: ./frontend
-  #   ports:
-  #     - "8181:8181"
-  #   depends_on:
-  #     - db
-  #     - api
-  #   restart: on-failure
-  #   networks:
-  #    - ireview-app
   
   api:
     container_name: api
@@ -30,6 +31,7 @@ services:
     environment:
       SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:password@database:3306/test
       SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
+      FRONTEND_PORT: '1234'
     ports:
       - "5000:5000"
     depends_on:
