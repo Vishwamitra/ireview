@@ -34,10 +34,14 @@ class Product(db.Model):
         self.ProductVAT = ProductVAT
     
     
-    @hybrid_property
-    def AvgReview(self):
-      AvgReview = db.session.query(func.avg(Review.ReviewPriceQuality).filter(Review.ProductID==self.ProductID).scalar())
-      return AvgReview
+    # @hybrid_property
+    # def AvgReview(self):
+    #   AvgReview = db.session.query(func.avg(Review.ReviewPriceQuality).filter(Review.ProductID==self.ProductID).scalar())
+    #   return AvgReview
+    
+    # @AvgReview.setter
+    # def AvgReview(self, AvgReview):
+    #     self._AvgReview = AvgReview
     
 
 
@@ -63,7 +67,7 @@ class Review(db.Model):
 # Product class Schema to serealize
 class ProductSchema(ma.Schema):
   class Meta:
-    fields = ('ProductID', 'ProductCode', 'ProductName', 'ProductDescription', 'ProductSummary', 'ProductPrice', 'ProductVAT', 'AvgReview')
+    fields = ('ProductID', 'ProductCode', 'ProductName', 'ProductDescription', 'ProductSummary', 'ProductPrice', 'ProductVAT','AvgReview')
 
 # Product Review class Schema to serealize
 class ProductReviewSchema(ma.Schema):

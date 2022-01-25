@@ -30,7 +30,14 @@ def create_app(test_config=None):
     def get_products():
         products = Product.query.all()
         result = products_schema.dump(products)
-        return jsonify(result)
+        data = []
+        for item in result:
+            item["AvgReview"] = 0 # default if no review present
+            if len(Review.query.filter(Review.ProductID==item["ProductID"]).all()) > 0:
+                avg = Review.query.with_entities(func.avg(Review.ReviewPriceQuality)).filter(Review.ProductID==item["ProductID"]).scalar()
+                item["AvgReview"] = round((float(avg)/2),0) # covert string to float e.g. 2.0
+            data.append(item)
+        return jsonify(data)
 
 
     # get product details for a single product id
@@ -38,6 +45,10 @@ def create_app(test_config=None):
     def get_product(ProductID):
         product = Product.query.get(ProductID)
         result = product_schema.dump(product)
+        result["AvgReview"] = 0 # default if no review present
+        if len(Review.query.filter(Review.ProductID==result["ProductID"]).all()) > 0:
+            avg = Review.query.with_entities(func.avg(Review.ReviewPriceQuality)).filter(Review.ProductID==result["ProductID"]).scalar()
+            result["AvgReview"] = round((float(avg)/2),0) # covert string to float e.g. 2.0
         return jsonify(result)
 
 
