@@ -32,18 +32,7 @@ class Product(db.Model):
         self.ProductSummary = ProductSummary
         self.ProductPrice = ProductPrice
         self.ProductVAT = ProductVAT
-    
-    
-    # @hybrid_property
-    # def AvgReview(self):
-    #   AvgReview = db.session.query(func.avg(Review.ReviewPriceQuality).filter(Review.ProductID==self.ProductID).scalar())
-    #   return AvgReview
-    
-    # @AvgReview.setter
-    # def AvgReview(self, AvgReview):
-    #     self._AvgReview = AvgReview
-    
-
+  
 
 # product review model class
 class Review(db.Model):
