@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 import os
 from flask_cors import CORS, cross_origin
+from sqlalchemy.sql import func
 
 from .dbmodel import db, Review, Product, products_schema, product_schema, product_reviews_schema, product_review_schema
 
@@ -29,7 +30,14 @@ def create_app(test_config=None):
     def get_products():
         products = Product.query.all()
         result = products_schema.dump(products)
-        return jsonify(result)
+        data = []
+        for item in result:
+            item["AvgReview"] = 0 # default if no review present
+            if len(Review.query.filter(Review.ProductID==item["ProductID"]).all()) > 0:
+                avg = Review.query.with_entities(func.avg(Review.ReviewPriceQuality)).filter(Review.ProductID==item["ProductID"]).scalar()
+                item["AvgReview"] = round((float(avg)/2),0) # covert string to float e.g. 2.0
+            data.append(item)
+        return jsonify(data)
 
 
     # get product details for a single product id
@@ -37,6 +45,10 @@ def create_app(test_config=None):
     def get_product(ProductID):
         product = Product.query.get(ProductID)
         result = product_schema.dump(product)
+        result["AvgReview"] = 0 # default if no review present
+        if len(Review.query.filter(Review.ProductID==result["ProductID"]).all()) > 0:
+            avg = Review.query.with_entities(func.avg(Review.ReviewPriceQuality)).filter(Review.ProductID==result["ProductID"]).scalar()
+            result["AvgReview"] = round((float(avg)/2),0) # covert string to float e.g. 2.0
         return jsonify(result)
 
 
@@ -81,7 +93,8 @@ def create_app(test_config=None):
     # delete a review for a Product
     @app.route('/review-delete', methods=['POST'])
     def delete_product_review():
-        review = request.json['ReviewID']
+        reviewid = request.json['ReviewID']
+        review = Review.query.get(reviewid)
         db.session.delete(review)
         db.session.commit()
         return product_review_schema.jsonify(review)
