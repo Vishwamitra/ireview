@@ -7,7 +7,7 @@ from .dbmodel import db, Review, Product, products_schema, product_schema, produ
 def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
-    CORS(app, resources={r"/*": {"origins": "localhost:1234"}})
+    CORS(app, resources={r"/*": {"origins": ("http://localhost:%s" % os.environ.get("FRONTEND_PORT"))}})
 
     if test_config is None:
         app.config.from_mapping(
@@ -65,9 +65,9 @@ def create_app(test_config=None):
 
 
     # Create a review for a Product
-    @app.route('/review/<prod_id>', methods=['POST'])
-    def new_product_review(ProductID):
-        ProductID = ProductID
+    @app.route('/review', methods=['POST'])
+    def new_product_review():
+        ProductID = request.json['ProductID']
         Reviewer = request.json['Reviewer']
         ReviewPriceQuality = request.json['ReviewPriceQuality']
         ReviewSummary = request.json['ReviewSummary']
@@ -79,9 +79,9 @@ def create_app(test_config=None):
 
 
     # delete a review for a Product
-    @app.route('/review/<ReviewID>', methods=['DELETE'])
-    def delete_product_review(ReviewID):
-        review = Review.query.get(ReviewID)
+    @app.route('/review-delete', methods=['POST'])
+    def delete_product_review():
+        review = request.json['ReviewID']
         db.session.delete(review)
         db.session.commit()
         return product_review_schema.jsonify(review)

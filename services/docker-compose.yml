@@ -33,7 +33,7 @@ services:
       SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
       FRONTEND_PORT: '1234'
     ports:
-      - "5000:8081"
+      - "5000:5000"
     depends_on:
       - database
     networks:
