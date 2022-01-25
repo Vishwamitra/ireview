@@ -31,7 +31,7 @@ services:
       SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:password@database:3306/test
       SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
     ports:
-      - "5000:8081"
+      - "5000:5000"
     depends_on:
       - database
     networks:
