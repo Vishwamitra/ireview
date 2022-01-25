@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request
 import os
+from flask_cors import CORS, cross_origin
 
 from .dbmodel import db, Review, Product, products_schema, product_schema, product_reviews_schema, product_review_schema
 
 def create_app(test_config=None):
 
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app, resources={r"/*": {"origins": "localhost:1234"}})
 
     if test_config is None:
         app.config.from_mapping(
