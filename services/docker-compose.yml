@@ -1,17 +1,17 @@
 version: "3.8"
 services:
-  frontend:
-    container_name: frontend
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        REACT_APP_BACKEND_PORT: "5000"
-    ports:
-      - "1234:80"
-    depends_on:
-      - api
-    restart: on-failure
+  # frontend:
+  #   container_name: frontend
+  #   build: 
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #     args:
+  #       REACT_APP_BACKEND_PORT: "5000"
+  #   ports:
+  #     - "1234:80"
+  #   depends_on:
+  #     - api
+  #   restart: on-failure
   database:
     container_name: database
     build: ./db

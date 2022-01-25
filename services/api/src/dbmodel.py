@@ -1,5 +1,8 @@
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.sql import func
 
 
 #init my cool db
@@ -19,6 +22,7 @@ class Product(db.Model):
     ProductSummary = db.Column(db.Text)
     ProductPrice = db.Column(db.Float)
     ProductVAT = db.Column(db.Float)
+    
 
     def __init__(self, ProductID, ProductCode, ProductName, ProductDescription, ProductSummary, ProductPrice, ProductVAT):
         self.ProductID = ProductID
@@ -28,6 +32,13 @@ class Product(db.Model):
         self.ProductSummary = ProductSummary
         self.ProductPrice = ProductPrice
         self.ProductVAT = ProductVAT
+    
+    
+    @hybrid_property
+    def AvgReview(self):
+      AvgReview = db.session.query(func.avg(Review.ReviewPriceQuality).filter(Review.ProductID==self.ProductID).scalar())
+      return AvgReview
+    
 
 
 # product review model class
@@ -52,12 +63,12 @@ class Review(db.Model):
 # Product class Schema to serealize
 class ProductSchema(ma.Schema):
   class Meta:
-    fields = ('ProductID', 'ProductCode', 'ProductName', 'ProductDescription', 'ProductSummary', 'ProductPrice', 'ProductVAT')
+    fields = ('ProductID', 'ProductCode', 'ProductName', 'ProductDescription', 'ProductSummary', 'ProductPrice', 'ProductVAT', 'AvgReview')
 
 # Product Review class Schema to serealize
 class ProductReviewSchema(ma.Schema):
   class Meta:
-    fields = ('ProductID', 'Reviewer', 'ReviewPriceQuality', 'ReviewDescription', 'ReviewSummary')
+    fields = ('ReviewID','ProductID', 'Reviewer', 'ReviewPriceQuality', 'ReviewDescription', 'ReviewSummary', 'ReviewTime')
 
 # Initialize the schemas
 product_schema = ProductSchema() # for single prodcut
