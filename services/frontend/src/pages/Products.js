@@ -10,7 +10,7 @@ class Component extends React.Component {
     }
 
     componentDidMount(){
-        axios.get(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/products`).then(response => {
+        axios.get(`https://localhost:${process.env.REACT_APP_BACKEND_PORT}/products`).then(response => {
             this.setState({
                 isLoading: false,
                 products: response.data

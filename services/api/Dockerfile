@@ -11,4 +11,4 @@ RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev
 RUN pip --no-cache-dir install -r requirements.txt
 
 EXPOSE 5000
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["python", "app.py"]
