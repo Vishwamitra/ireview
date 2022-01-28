@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 import { NavLink } from 'react-router-dom'
-import config from '../config'
 
 class Component extends React.Component {
 
