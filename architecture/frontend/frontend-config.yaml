@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: web-config
+  name: frontend-config
+  labels:
+    app: frontend
 data:
-  web.properties: |
-    window.API_URL= "api.kubernetes.com"
+  REACT_APP_BACKEND_URL: "https://localhost:5000"

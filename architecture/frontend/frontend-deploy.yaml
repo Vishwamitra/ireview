@@ -23,15 +23,3 @@ spec:
               name: frontend-config
         ports:
           - containerPort: 80
-        volumeMounts:
-          - name: config
-            mountPath: "/usr/share/nginx/html/config.js"
-            subPath: "config.js"
-      terminationGracePeriodSeconds: 10
-      volumes:
-        - name: config
-          configMap:
-            name: web-config
-            items:
-              - key: "web.properties"
-                path: "config.js"
