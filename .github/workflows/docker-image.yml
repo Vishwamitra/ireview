@@ -24,11 +24,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker Image for API
-      run: docker build . --file Dockerfile --tag $DOCKER_USER/api:latest
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/ireview-app/api:latest
     - name: Docker login
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Push image
-      run: docker push $DOCKER_USER/api:latest
+      run: docker push $DOCKER_USER/ireview-app/api:latest
   
   build-web:
 
