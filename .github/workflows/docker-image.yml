@@ -12,8 +12,6 @@ env:
 
 jobs:
 
-
-
   build-api:
 
     runs-on: ubuntu-latest
@@ -24,11 +22,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker Image for API
-      run: docker build . --file Dockerfile --tag $DOCKER_USER/ireview-app/api:latest
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/api:latest
     - name: Docker login
       run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Push image
-      run: docker push $DOCKER_USER/ireview-app/api:latest
+      run: docker push $DOCKER_USER/api:latest
   
   build-web:
 
@@ -40,7 +38,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker image for web
-      run: docker build . --file Dockerfile --tag frontend:latest
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/frontend:latest
+    - name: Push image
+      run: docker push $DOCKER_USER/frontend:latest
 
   build-db:
 
@@ -52,4 +52,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker image for DB
-      run: docker build . --file Dockerfile --tag db:latest
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/db:latest
+    - name: Push image
+      run: docker push $DOCKER_USER/db:latest
