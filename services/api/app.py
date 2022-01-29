@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request, redirect
 import os
 from flask_cors import CORS
 from sqlalchemy.sql import func
-from flask_sslify import SSLify
 
 from dbmodel import db, Review, Product, products_schema, product_schema, product_reviews_schema, product_review_schema
 
@@ -21,6 +20,7 @@ app.config.from_mapping(
 
 db.app = app
 db.init_app(app)
+db.create_all()
 
 # all endpoints
 
