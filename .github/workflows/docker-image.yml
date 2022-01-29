@@ -39,6 +39,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Docker image for web
       run: docker build . --file Dockerfile --tag $DOCKER_USER/frontend:latest
+    - name: Docker login
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Push image
       run: docker push $DOCKER_USER/frontend:latest
 
@@ -53,5 +55,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Docker image for DB
       run: docker build . --file Dockerfile --tag $DOCKER_USER/db:latest
+    - name: Docker login
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Push image
       run: docker push $DOCKER_USER/db:latest
