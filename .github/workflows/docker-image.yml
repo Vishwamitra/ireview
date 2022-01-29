@@ -6,7 +6,13 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
 jobs:
+
+
 
   build-api:
 
@@ -18,7 +24,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Docker Image for API
-      run: docker build . --file Dockerfile --tag api:latest
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/api:latest
+    - name: Docker login
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - name: Push image
+      run: docker push $DOCKER_USER/api:latest
   
   build-web:
 
