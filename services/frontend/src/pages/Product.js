@@ -25,7 +25,7 @@ class Component extends React.Component {
     }
 
     addReview = (input) => { 
-        axios.post(`https://localhost:${process.env.REACT_APP_BACKEND_PORT}/review`, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/review`, {
             ProductID: this.state.productInfo.ProductID,
             ReviewPriceQuality: this.state.rating,
             Reviewer: this.state.reviewerName || "Anonymous",
@@ -50,7 +50,7 @@ class Component extends React.Component {
     }
 
     deleteReview = (id) => { 
-        axios.post(`https://localhost:${process.env.REACT_APP_BACKEND_PORT}/review-delete`, {
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/review-delete`, {
             ReviewID: id
         }).then(() => { 
             var reviews = this.state.productInfo.reviews
@@ -67,8 +67,8 @@ class Component extends React.Component {
 
     componentDidMount(){
         const { id} = this.props.match.params
-        axios.get(`https://localhost:${process.env.REACT_APP_BACKEND_PORT}/product/${id}`).then(productInfo => {
-            axios.get(`https://localhost:${process.env.REACT_APP_BACKEND_PORT}/product/${id}/reviews`).then(reviews => {
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/${id}`).then(productInfo => {
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/${id}/reviews`).then(reviews => {
                 this.setState({
                     isLoading: false,
                     productInfo: {
