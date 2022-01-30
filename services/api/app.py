@@ -9,7 +9,7 @@ from dbmodel import db, Review, Product, products_schema, product_schema, produc
 app = Flask(__name__, instance_relative_config=True)
 
 
-CORS(app, resources={r"/*": {"origins": ("http://localhost:%s" % os.environ.get("FRONTEND_PORT"))}})
+CORS(app, resources={r"/*": {"origins": ("%s" % os.environ.get("FRONTEND_URL"))}})
 
 
 app.config.from_mapping(
