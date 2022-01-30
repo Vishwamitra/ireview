@@ -6,34 +6,38 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_BACKEND_URL: "https://localhost:5000"
+      
+        REACT_APP_BACKEND_URL: https://api-service:5000/
     ports:
-      - "1234:80"
+      - "8080:80"
     depends_on:
-      - api
-    restart: on-failure
+      - api-service
+    networks:
+      - ireview-app
+  
+  
   database:
     container_name: database
     build: ./db
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: test
+       POSTGRES_USER: postgresadmin
+       POSTGRES_PASSWORD: admin123
     ports:
-      - 3306:3306
+      - 5432:5432
     restart: always
 
     networks:
       - ireview-app
   
-  api:
-    container_name: api
+  api-service:
+    container_name: api-service
     build: ./api
     environment:
-      SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:password@database:3306/test
+      SQLALCHEMY_DATABASE_URI: postgresql://postgresadmin:admin123@database:5432/postgres
       SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
       FRONTEND_PORT: '1234'
     ports:
-      - "5000:5000"
+      - "5000:4000"
     depends_on:
       - database
     networks:
