@@ -6,4 +6,4 @@ metadata:
     app: frontend
 data:
   web.properties: |
-    window.REACT_APP_BACKEND_URL = "https://localhost:5000"
+    window.REACT_APP_BACKEND_URL = "https://localhost:30002"
