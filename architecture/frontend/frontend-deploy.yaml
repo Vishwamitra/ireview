@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend-deployment-container
-        image: dedder98/sc:rating-frontend
+        image: vishwamishra/frontend:latest
         imagePullPolicy: Always
         volumeMounts:
           #override config.js file
