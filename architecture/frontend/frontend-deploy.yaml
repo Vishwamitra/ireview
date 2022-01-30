@@ -18,8 +18,17 @@ spec:
       - name: frontend-deployment-container
         image: dedder98/sc:rating-frontend
         imagePullPolicy: Always
-        envFrom:
-          - configMapRef:
-              name: frontend-config
+        volumeMounts:
+          #override config.js file
+          - name: config
+            mountPath: "/usr/share/nginx/html/config.js"
+            subPath: "config.js"
         ports:
           - containerPort: 80
+      volumes:
+        - name: config
+          configMap:
+              name: frontend-config
+              items:
+                  - key: "web.properties"
+                    path: "config.js"

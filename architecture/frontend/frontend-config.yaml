@@ -5,4 +5,5 @@ metadata:
   labels:
     app: frontend
 data:
-  REACT_APP_BACKEND_URL: "https://localhost:5000"
+  web.properties: |
+    window.REACT_APP_BACKEND_URL = "https://localhost:5000"
