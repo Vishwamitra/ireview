@@ -1,34 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment 
+  name: {{ include "frontend-chart.fullname" . }}
   labels:
-    app: frontend
+    {{- include "frontend-chart.labels" . | nindent 4 }}
 spec:
-  replicas: 3
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      app: frontend
+      {{- include "frontend-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        app: frontend
+        {{- include "frontend-chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - name: frontend-deployment-container
-        image: vishwamishra/frontend:latest
-        imagePullPolicy: Always
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         volumeMounts:
-          #override config.js file
-          - name: config
-            mountPath: "/usr/share/nginx/html/config.js"
-            subPath: "config.js"
+          - name: config #override config.js file
+            mountPath: "/usr/share/nginx/html/{{ .Values.config.js }}"
+            subPath: {{ .Values.config.js }}
         ports:
           - containerPort: 80
       volumes:
         - name: config
           configMap:
-              name: frontend-config
+              name: {{ .Values.config.name }}
               items:
                   - key: "web.properties"
-                    path: "config.js"
+                    path: {{ .Values.config.js }}

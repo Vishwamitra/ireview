@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: frontend-config
+  name: {{ .Values.config.name }}
   labels:
     app: frontend
 data:
-  web.properties: |
-    window.REACT_APP_BACKEND_URL = "https://localhost:30002"
+  web.properties: | 
+    {{- range $key, $value := .Values.env }}
+      window.{{ $key }} = "{{ $value }}"
+    {{- end }}
