@@ -21,11 +21,11 @@ spec:
         {{- include "frontend-chart.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: frontend-deployment-container
+      - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         volumeMounts:
-          - name: config #override config.js file
+          - name: config # override config.js file
             mountPath: "/usr/share/nginx/html/{{ .Values.config.js }}"
             subPath: {{ .Values.config.js }}
         ports:

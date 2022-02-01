@@ -7,5 +7,5 @@ metadata:
 data:
   web.properties: | 
     {{- range $key, $value := .Values.env }}
-      window.{{ $key }} = "{{ $value }}"
+      window.{{ $key }} = "{{ $value }}"; console.log("test 3")
     {{- end }}
