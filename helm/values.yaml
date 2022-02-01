@@ -25,9 +25,9 @@ global:
   ##
   postgresql:
     postgresqlDatabase: ""
-    postgresqlUsername: ""
+    postgresqlUsername: postgresadmin
     existingSecret: ""
-    postgresqlPassword: ""
+    postgresqlPassword: YWRtaW4xMjMK
     servicePort: ""
     replicationPassword: ""
 
@@ -427,7 +427,7 @@ ldap:
 service:
   ## @param service.type Kubernetes Service type
   ##
-  type: ClusterIP
+  type: NodePort
   ## @param service.clusterIP Static clusterIP or None for headless services
   ## e.g:
   ## clusterIP: None
@@ -439,7 +439,7 @@ service:
   ## @param service.nodePort Specify the nodePort value for the LoadBalancer and NodePort service types
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   ##
-  nodePort: ""
+  nodePort: 30001
   ## @param service.annotations Annotations for PostgreSQL service
   ##
   annotations: {}
