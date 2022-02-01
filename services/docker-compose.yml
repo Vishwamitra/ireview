@@ -6,10 +6,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-      
         REACT_APP_BACKEND_URL: https://api-service:5000/
     ports:
-      - "8080:80"
+      - 80:80
+      - 443:443
     depends_on:
       - api-service
     networks:
