@@ -5,6 +5,10 @@ image:
   pullPolicy: Always
   tag: "latest"
 
+service:
+  type: NodePort
+  port: 32001
+  
 # application specific
 config:
   name: frontend-config
@@ -40,10 +44,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
-service:
-  type: NodePort
-  port: 32001
 
 ingress:
   enabled: false
