@@ -24,7 +24,7 @@ global:
   ## @param global.postgresql.replicationPassword Replication user password (overrides `replication.password`)
   ##
   postgresql:
-    postgresqlDatabase: ""
+    postgresqlDatabase: postgres
     postgresqlUsername: postgresadmin
     existingSecret: ""
     postgresqlPassword: YWRtaW4xMjMK
@@ -306,12 +306,11 @@ extendedConfConfigMap: ""
 ## Specify dictionary of scripts to be run at first boot
 ## Alternatively, you can put your scripts under the files/docker-entrypoint-initdb.d directory
 ## e.g:
-# initdbScripts:
-#   my_init_script.sh: |
-#      #!/bin/sh
-#      echo "Do something."
+initdbScripts:
+  shcema.sql: |
+    GRANT ALL PRIVILEGES ON DATABASE postgres TO postgresadmin;
 ##
-initdbScripts: {}
+## initdbScripts: {}
 ## @param initdbScriptsConfigMap ConfigMap with scripts to be run at first boot
 ## NOTE: This will override initdbScripts
 ##
