@@ -7,9 +7,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-   - protocol: TCP
-     port: 5050 # TODO: why was this 5050 again?
-     targetPort: 443
+   - protocol: {{ .Values.client.protocol }}
+     port: 5050 
+     targetPort: {{ .Values.client.port }}
      nodePort: {{ .Values.service.port }}
   selector:
     {{- include "frontend-chart.selectorLabels" . | nindent 4 }}

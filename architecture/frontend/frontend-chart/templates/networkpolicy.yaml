@@ -1,0 +1,21 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1 
+metadata:
+  name: web-deny-all 
+spec:
+  policyTypes:
+  - Ingress
+  ingress: 
+  - from:
+    ports:
+    - protocol: {{ .Values.client.protocol }}
+      port: {{ .Values.client.port }}
+  #egress: 
+  # allow DNS resolution
+  #- ports:
+  #  - port: 53
+  #    protocol: UDP
+  #  - port: 53 
+  #    protocol: TCP
+
+  # TODO: add backend port

@@ -8,6 +8,10 @@ image:
 service:
   type: NodePort
   port: 32001
+
+client:
+  protocol: TCP
+  port: 443
   
 # application specific
 config:
