@@ -1,11 +1,11 @@
-# Default values for api.
+# Default values for postgres.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: vishwamishra/api
+  repository: vishwamishra/db
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -38,16 +38,34 @@ securityContext: {}
 
 service:
   type: NodePort
-  port: 5000
-  nodePort: 30002
+  port: 5432
+  nodePort: 30001
 
 config:
-  name: api-config
+  name: postgres-config
 
 env:
-  SQLALCHEMY_DATABASE_URI: postgresql://postgresadmin:admin123@postgres:5432/postgresdb
-  SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
-  FRONTEND_URL: 'https://localhost:32001'
+  POSTGRES_DB: postgresdb 
+  POSTGRES_USER: postgresadmin
+
+secret:
+  name: postgres-secret
+  key: POSTGRES_PASSWORD
+  type: Opaque
+  password: YWRtaW4xMjMK
+
+
+volumemount:
+  path: /var/lib/postgresql/data
+  name: postgredb
+
+volumes:
+  name: postgredb
+  claimname: postgres-pv-claim
+
+storage:
+  classname: microk8s-hostpath
+  size: 5Gi
 
 ingress:
   enabled: false
