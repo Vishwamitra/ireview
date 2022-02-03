@@ -64,7 +64,7 @@ volumes:
   claimname: postgres-pv-claim
 
 storage:
-  classname: microk8s-hostpath
+  classname: standard
   size: 5Gi
 
 ingress:
