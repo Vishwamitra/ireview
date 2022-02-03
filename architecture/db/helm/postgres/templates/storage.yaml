@@ -10,9 +10,10 @@ spec:
   capacity: 
     storage: {{ .Values.storage.size }} 
   accessModes: 
-    - ReadWriteMany 
+    - ReadWriteOnce 
   hostPath: 
-    path: "/opt/postgres/data" 
+    path: "/opt/postgres/data"
+  persistentVolumeReclaimPolicy: Retain
 
 kind: PersistentVolumeClaim 
 apiVersion: v1 
