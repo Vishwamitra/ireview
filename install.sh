@@ -8,6 +8,6 @@ helm install api ./architecture/api/helm/api -n ireview-app
 
 echo "installing front end now..."
 
-helm install frontend ./architecture/frontend/frontend-chart/ -n ireview-app
+helm install frontend ./architecture/frontend/helm/frontend -n ireview-app
 
 echo " all installation done"

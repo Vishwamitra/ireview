@@ -12,7 +12,7 @@ spec:
       port: {{ .Values.client.port }}
   podSelector:
     matchLabels:
-      app: {{ include "frontend-chart.fullname" . }}
+      app: {{ include "frontend.fullname" . }}
   #egress: 
   # allow DNS resolution
   #- ports:
