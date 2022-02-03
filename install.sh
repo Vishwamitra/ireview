@@ -1,3 +1,5 @@
+echo "Installing postgres DB..."
+
 helm install postgres ./architecture/db/helm/postgres/ -n ireview-app
 
 echo "Installing Api...."
