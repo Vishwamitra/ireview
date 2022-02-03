@@ -36,17 +36,17 @@ Common labels
 {{- define "frontend.labels" -}}
 {{ include "frontend.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-managed-by: {{ .Release.Service }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "frontend.selectorLabels" -}}
-app: {{ include "frontend.name" . }}
-instance: {{ .Release.Name }}
+app.kubernetes.io/app: {{ include "frontend.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
