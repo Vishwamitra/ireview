@@ -56,7 +56,7 @@ secret:
 
 
 volumemount:
-  path: /var/lib/postgresql/data
+  path: /var/lib/postgresql/data/pgdata
   name: postgredb
 
 volumes:
