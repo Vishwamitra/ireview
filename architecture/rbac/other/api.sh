@@ -1,1 +1,0 @@
-curl -X GET $APISERVER/api/v1/namespaces/development/services/frontend --header "Authorization: wi/OInSxufYux53FkBDltIiuGaOltKIfMuJbpwmJK1dUyPlY8DS9Rm3WH3wgfOuU" --insecure

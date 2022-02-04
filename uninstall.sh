@@ -1,8 +1,5 @@
-helm uninstall frontend -n ireview-app
+helm uninstall frontend -n development
 
-helm uninstall api -n ireview-app
+helm uninstall api -n development
 
-helm uninstall postgres -n ireview-app
-
-# uninstal roles
-helm uninstall roles ./architecture/rbac/helm 
+helm uninstall postgres -n development
