@@ -53,7 +53,7 @@ networkPolicy:
   enabled: true
   ingress:
     allowHTTP: true
-    allowExternal: false
+    allowExternal: true
 
 ingress:
   enabled: false
