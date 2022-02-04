@@ -56,7 +56,7 @@ secret:
 
 
 volumemount:
-  path: /var/lib/postgres/pgdata
+  path: /var/lib/postgresql/data
   name: postgredb
 
 volumes:
@@ -64,8 +64,13 @@ volumes:
   claimname: postgres-pv-claim
 
 storage:
-  classname: standard
+  classname: microk8s-hostpath
   size: 5Gi
+
+networkPolicy:
+  enabled: true
+  ingress:
+    allowExternal: false
 
 ingress:
   enabled: false
