@@ -49,6 +49,12 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+networkPolicy:
+  enabled: true
+  ingress:
+    allowHTTP: true
+    allowExternal: true
+
 ingress:
   enabled: false
   className: ""

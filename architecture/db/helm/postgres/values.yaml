@@ -67,6 +67,11 @@ storage:
   classname: standard
   size: 5Gi
 
+networkPolicy:
+  enabled: true
+  ingress:
+    allowExternal: false
+
 ingress:
   enabled: false
   annotations: {}

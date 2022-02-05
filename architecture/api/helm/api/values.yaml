@@ -49,6 +49,11 @@ env:
   SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
   FRONTEND_URL: 'https://localhost:32001'
 
+networkPolicy:
+  enabled: true
+  ingress:
+    allowExternal: false
+
 ingress:
   enabled: false
   annotations: {}
