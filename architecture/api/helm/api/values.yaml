@@ -39,7 +39,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 5000
-  nodePort: 5000
+  nodePort: 32002
 
 config:
   name: api-config
