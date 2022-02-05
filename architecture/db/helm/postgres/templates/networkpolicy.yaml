@@ -16,4 +16,6 @@ spec:
           matchLabels:
             name: {{ .Release.Namespace }}
     {{- end }}
+      ports:
+        - port: {{ .Values.service.port }}
 {{- end }}
