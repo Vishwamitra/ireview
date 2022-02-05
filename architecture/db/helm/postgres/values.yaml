@@ -47,6 +47,7 @@ config:
 env:
   POSTGRES_DB: postgresdb 
   POSTGRES_USER: postgresadmin
+  PGDATA: /var/lib/postgresql/data/pgdata
 
 secret:
   name: postgres-secret
