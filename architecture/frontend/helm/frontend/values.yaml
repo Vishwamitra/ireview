@@ -20,7 +20,7 @@ config:
 
 # environment variables
 env:
-  REACT_APP_BACKEND_URL: https://localhost:30002
+  REACT_APP_BACKEND_URL: https://35.193.128.127:32002
 
 # other
 imagePullSecrets: []
