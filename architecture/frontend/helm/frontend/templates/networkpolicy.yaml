@@ -9,7 +9,6 @@ spec:
       {{- include "frontend.selectorLabels" . | nindent 6 }}
   policyTypes:
   - Ingress
-  - Egress
   ingress: 
     - ports:
         - protocol: {{ .Values.client.protocol }}
