@@ -9,8 +9,6 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       protocol: TCP
-      nodePort: {{ .Values.service.nodePort }}
       targetPort: {{ .Values.service.targetPort }}
   selector:
     {{- include "api.selectorLabels" . | nindent 4 }}
-  type: LoadBalancer
