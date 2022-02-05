@@ -18,7 +18,7 @@ spec:
           port: 80
       {{- end }}
       {{- if not .Values.networkPolicy.ingress.allowExternal }}
-      from:
+    - from:
         - namespaceSelector:
             matchLabels:
               app: {{ .Release.Namespace }}
