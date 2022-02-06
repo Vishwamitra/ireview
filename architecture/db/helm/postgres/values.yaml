@@ -37,9 +37,9 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 5432
-  targetPort: 5432
+  nodePort: 5432
 
 config:
   name: postgres-config
