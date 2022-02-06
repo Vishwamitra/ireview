@@ -42,6 +42,10 @@ This is the single command required in order to install the entire application.
 
 Above script calls following helm charts in order to deploy them in kubernetes inside a namespace called ireview-app
 
+#### Create namespace
+Use following command to create a new namespace before running the following commands:
+
+``` kubectl create namespace ireview-app ``` 
 
 ``` helm install postgres ./architecture/db/helm/postgres/ -n ireview-app``` 
 
@@ -65,9 +69,21 @@ Above script calls following helm charts in order to deploy them in kubernetes i
 ``` helm uninstall postgres -n ireview-app ``` 
 
 ## Upgrade
+For a new version of the software following command is used to upgrade the services: 
+
+``` $ kubectl upgrade frontend frontend/ -n ireview-app``` 
+
+```  $ kubectl upgrade api api/ -n ireview-app``` 
+
+``` $ kubectl upgrade db db/ -n ireview-app ``` 
 
 
-## Scaleup
+## Scaleup/Scale down
 
+In order to scaleup each of our services, you can use the following command to increase the number of replicas:
 
-## Scale-down
+``` $ kubectl scale --replicas 2 deployment/frontend -n ireview-app``` 
+
+``` $ kubectl scale --replicas 3 deployment/api -n ireview-app ``` 
+
+``` $ kubectl scale --replicas 2 deployment/postgres -n ireview-app ``` 
