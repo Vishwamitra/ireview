@@ -10,4 +10,8 @@ echo "installing front end now..."
 
 helm install frontend ./architecture/frontend/helm/frontend -n ireview-app
 
-echo " all installation done"
+# echo "installing roles..."
+
+# helm install roles ./architecture/rbac/helm  -n ireview-app
+
+# echo "installation done..."

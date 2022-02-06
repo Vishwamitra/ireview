@@ -39,7 +39,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 5432
-  nodePort: 30001
+  nodePort: 32003
 
 config:
   name: postgres-config
@@ -47,6 +47,7 @@ config:
 env:
   POSTGRES_DB: postgresdb 
   POSTGRES_USER: postgresadmin
+  PGDATA: /var/lib/postgresql/data/pgdata
 
 secret:
   name: postgres-secret
