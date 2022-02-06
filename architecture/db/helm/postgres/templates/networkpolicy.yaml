@@ -17,13 +17,9 @@ spec:
           matchLabels:
             name: {{ .Release.Namespace }}
     {{- end }}
-      ports:
+    - ports:
         - port: {{ .Values.service.port }}
   egress: 
   - to: 
     - ipBlock: 
-        cidr: 0.0.0.0/0 
-        except: 
-        - 10.116.0.0/14 
-        - 10.120.0.0/20
-{{- end }}
+        cidr: 10.0.0.0/8
