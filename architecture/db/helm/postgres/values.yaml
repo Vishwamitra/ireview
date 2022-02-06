@@ -65,7 +65,7 @@ volumes:
   claimname: postgres-pv-claim
 
 storage:
-  classname: pd-standard
+  classname: standard
   size: 5Gi
 
 networkPolicy:

@@ -13,7 +13,7 @@ spec:
     - ReadWriteOnce 
   hostPath: 
     path: {{ .Values.volumemount.path }}
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
 
 kind: PersistentVolumeClaim 
 apiVersion: v1 
