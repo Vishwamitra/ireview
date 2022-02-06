@@ -52,7 +52,7 @@ securityContext: {}
 networkPolicy:
   enabled: true
   ingress:
-    allowHTTP: true
+    allowHTTP: false
     allowExternal: true
 
 ingress:
