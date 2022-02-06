@@ -47,7 +47,7 @@ config:
 env:
   SQLALCHEMY_DATABASE_URI: postgresql://postgresadmin:admin123@postgres:5432/postgresdb
   SQLALCHEMY_TRACK_MODIFICATIONS: 'false'
-  FRONTEND_URL: 'https://35.193.128.127:32001'
+  FRONTEND_URL: 'https://34.132.69.182:32001'
 
 networkPolicy:
   enabled: true
