@@ -52,7 +52,8 @@ env:
 networkPolicy:
   enabled: true
   ingress:
-    allowExternal: false
+    allowHTTP: false
+    allowExternal: true
 
 ingress:
   enabled: false
