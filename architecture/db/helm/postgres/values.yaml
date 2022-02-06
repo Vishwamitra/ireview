@@ -39,7 +39,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 5432
-  nodePort: 32002
+  nodePort: 32003
 
 config:
   name: postgres-config
