@@ -9,19 +9,18 @@ spec:
       {{- include "api.selectorLabels" . | nindent 6 }}
   policyTypes:
   - Ingress
-  - Egress 
   ingress: 
-    {{- if not .Values.networkPolicy.ingress.allowExternal }}
+    - ports:
+        - protocol: TCP
+          port: 443
+      {{- if .Values.networkPolicy.ingress.allowHTTP }}
+        - protocol: TCP
+          port: 80
+      {{- end }}
+      {{- if not .Values.networkPolicy.ingress.allowExternal }}
     - from:
-      - namespaceSelector:
-          matchLabels:
-            name: {{ .Release.Namespace }}
-    {{- end }}
-  egress: 
-  - to: 
-    - ipBlock: 
-        cidr: 0.0.0.0/0 
-        except: 
-        - 10.116.0.0/14 
-        - 10.120.0.0/20
+        - namespaceSelector:
+            matchLabels:
+              app: {{ .Release.Namespace }}
+      {{- end }}
 {{- end }}
